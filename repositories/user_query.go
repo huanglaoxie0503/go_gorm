@@ -7,53 +7,6 @@ import (
 	"time"
 )
 
-// 数据库连接
-func Connection() (*gorm.DB, error) {
-	db, err := gorm.Open("mysql", "root:root@tcp(127.0.0.1:3306)/g_orm?charset=utf8")
-	db.SingularTable(true)
-	if err != nil {
-		panic(err)
-	}
-	return db, err
-}
-
-// 创建表
-func CreatTableOrm(db *gorm.DB) {
-	if !db.HasTable(&model.User{}) {
-		if err := db.Set("grom:table_options", "ENGINE=InnoDB DEFAULT CHARSET=utf8").CreateTable(&model.User{}).Error; err != nil {
-			panic(err)
-		}
-		fmt.Println("建表成功！")
-	}
-}
-
-// 插入数据
-func InsertOrm(db *gorm.DB) {
-	user := model.User{
-		Model:        gorm.Model{},
-		Name:         "oscar",
-		Age:          20,
-		Birthday:     nil,
-		Email:        "2251018029",
-		Role:         "老大",
-		MemberNumber: "123456",
-		Num:          1,
-		Address:      "深圳",
-		IgnoreMe:     0,
-	}
-	db.NewRecord(user)
-	if err := db.Create(&user).Error; err != nil {
-		fmt.Println(err)
-	}
-	db.NewRecord(user)
-}
-
-func DeleteOrm(db *gorm.DB, hash uint64) {
-	if err := db.Where(&model.LikeNum{Hash: hash}).Delete(model.LikeNum{}).Error; err != nil {
-		fmt.Println(err)
-	}
-}
-
 // 查询
 func QueryOrm(db *gorm.DB, user *model.User) {
 	// 根据主键查询第一条记录 -->	SELECT * FROM users ORDER BY id LIMIT 1;
