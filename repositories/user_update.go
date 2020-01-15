@@ -86,6 +86,5 @@ func UpdateSqlExpOrm(db *gorm.DB, order *model.Order) {
 func UpdateOtherOrm(db *gorm.DB, user *model.User) {
 	// 为 update SQL 添加其它的 SQL
 	db.Model(&user).Set("gorm:update_option", "OPTION (OPTIMIZE FOR UNKNOWN)").Update("name", "oscar")
-	//// UPDATE users SET name='hello', updated_at = '2013-11-17 21:34:10' WHERE id=111 OPTION (OPTIMIZE FOR UNKNOWN);
-
+	// UPDATE users SET name='hello', updated_at = '2019-11-17 21:34:10' WHERE id=111 OPTION (OPTIMIZE FOR UNKNOWN);
 }
